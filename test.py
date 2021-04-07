@@ -9,6 +9,7 @@ import os
 import cv2
 import time
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
@@ -28,17 +29,18 @@ from PIL import Image
 
 CKPT_PATH = ''
 
-CKPT_PATH_G = '/best_model/AG_CNN_Global_epoch_1.pkl' 
-CKPT_PATH_L = '/best_model/AG_CNN_Local_epoch_2.pkl' 
-CKPT_PATH_F = '/best_model/AG_CNN_Fusion_epoch_23.pkl'
+CKPT_PATH_G = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/best_model/AG_CNN_Global_epoch_1.pkl' 
+CKPT_PATH_L = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/best_model/AG_CNN_Local_epoch_2.pkl' 
+CKPT_PATH_F = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/best_model/AG_CNN_Fusion_epoch_23.pkl'
 
 N_CLASSES = 14
 CLASS_NAMES = [ 'Atelectasis', 'Cardiomegaly', 'Effusion', 'Infiltration', 'Mass', 'Nodule', 'Pneumonia',
                 'Pneumothorax', 'Consolidation', 'Edema', 'Emphysema', 'Fibrosis', 'Pleural_Thickening', 'Hernia']
 
-DATA_DIR = '/path/to/ur/data'
-TRAIN_IMAGE_LIST = '/labels/train_list.txt'
-TEST_IMAGE_LIST = '/labels/test_list.txt'
+DATA_DIR = '/scratch/parkar.s/NIH/images'
+TRAIN_IMAGE_LIST = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/labels/train_list.txt'
+VAL_IMAGE_LIST = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/labels/val_list.txt'
+TEST_IMAGE_LIST = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/labels/test_list.txt'
 
 num_epochs = 50
 BATCH_SIZE = 32
@@ -198,7 +200,7 @@ def test(model_global, model_local, model_fusion, test_loader):
             pred_global = torch.cat((pred_global, output_global.data), 0)
             pred_local = torch.cat((pred_local, output_local.data), 0)
             pred_fusion = torch.cat((pred_fusion, output_fusion.data), 0)
-            
+
     AUROCs_g = compute_AUCs(gt, pred_global)
     AUROC_avg = np.array(AUROCs_g).mean()
     print('Global branch: The average AUROC is {AUROC_avg:.3f}'.format(AUROC_avg=AUROC_avg))

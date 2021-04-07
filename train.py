@@ -38,10 +38,10 @@ CLASS_NAMES = [ 'Atelectasis', 'Cardiomegaly', 'Effusion', 'Infiltration', 'Mass
                 'Pneumothorax', 'Consolidation', 'Edema', 'Emphysema', 'Fibrosis', 'Pleural_Thickening', 'Hernia']
 
 # load with your own dataset path
-DATA_DIR = '/media/xxxx/data/xxxx/images'
-TRAIN_IMAGE_LIST = '/labels/train_list.txt'
-VAL_IMAGE_LIST = '/labels/val_list.txt'
-save_model_path = '/model-AG-CNN/'
+DATA_DIR = '/scratch/parkar.s/NIH/images'
+TRAIN_IMAGE_LIST = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/labels/train_list.txt'
+VAL_IMAGE_LIST = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/labels/val_list.txt'
+save_model_path = '/home/parkar.s/NIH_multilabel_classification/AG-CNN-master/model-AG-CNN/'
 save_model_name = 'AG_CNN'
 
 # learning rate
